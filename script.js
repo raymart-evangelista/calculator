@@ -164,3 +164,11 @@ let acBtn = document.createElement('button');
 acBtn.classList.add('btn');
 acBtn.textContent = 'AC';
 digitContainer.appendChild(acBtn);
+
+// populate display when a number is clicked
+let numbers = document.querySelectorAll('.digit');
+numbers.forEach(number => {
+    number.addEventListener('click', () => {
+        displayContainer.textContent = number.textContent;
+    })
+})
