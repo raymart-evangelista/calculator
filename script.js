@@ -45,7 +45,7 @@ let displayContainer = document.createElement('div');
 displayContainer.classList.add('display');
     
     // add dummy text into display
-    displayContainer.textContent = '1234567890';
+    displayContainer.textContent = '0';
 
 // create container for digits and operators
 
@@ -166,9 +166,16 @@ acBtn.textContent = 'AC';
 digitContainer.appendChild(acBtn);
 
 // populate display when a number is clicked
+let currentNum;
+let savedNum;
+let operator;
 let numbers = document.querySelectorAll('.digit');
 numbers.forEach(number => {
+
     number.addEventListener('click', () => {
-        displayContainer.textContent = number.textContent;
+        displayContainer.textContent += number.textContent;
+        
+        // store displayContainer contents
+        currentNum = displayContainer.textContent;
     })
 })
