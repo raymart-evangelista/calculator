@@ -149,20 +149,25 @@ equalBtn.textContent = '=';
 digitContainer.appendChild(sevenBtn);
 digitContainer.appendChild(eightBtn);
 digitContainer.appendChild(nineBtn);
+digitContainer.appendChild(divBtn);
 digitContainer.appendChild(fourBtn);
 digitContainer.appendChild(fiveBtn);
 digitContainer.appendChild(sixBtn);
+digitContainer.appendChild(mulBtn);
 digitContainer.appendChild(oneBtn);
 digitContainer.appendChild(twoBtn);
 digitContainer.appendChild(threeBtn);
+digitContainer.appendChild(subBtn);
 digitContainer.appendChild(zeroBtn);
+digitContainer.appendChild(addBtn);
+digitContainer.appendChild(equalBtn);
 
 // append operators onto operators container
-operatorContainer.appendChild(divBtn);
-operatorContainer.appendChild(mulBtn);
-operatorContainer.appendChild(subBtn);
-operatorContainer.appendChild(addBtn);
-operatorContainer.appendChild(equalBtn);
+// operatorContainer.appendChild(divBtn);
+// operatorContainer.appendChild(mulBtn);
+// operatorContainer.appendChild(subBtn);
+// operatorContainer.appendChild(addBtn);
+// operatorContainer.appendChild(equalBtn);
 
 // create All Clear btn
 let acBtn = document.createElement('button');
