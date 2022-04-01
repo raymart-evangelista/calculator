@@ -32,7 +32,7 @@ function operate(op, num1, num2) {
             return mul(num1, num2);
             break;
         case '/':
-            return div(num1, num2);
+            return Math.round(div(num1, num2) * 100) / 100
             break;
     }
 
@@ -166,9 +166,15 @@ acBtn.classList.add('allClear');
 acBtn.textContent = 'AC';
 operatorContainer.appendChild(acBtn);
 
+// create Delete btn
+let delBtn = document.createElement('button');
+delBtn.classList.add('btn');
+delBtn.classList.add('delete');
+delBtn.textContent = 'DEL';
+operatorContainer.appendChild(delBtn);
+
 let currentNum;
 let savedNum;
-let operator;
 let firstDigInstance = true;
 let currentOperator;
 let savedOperator;
@@ -192,6 +198,7 @@ numbers.forEach(number => {
 
         // populate display
         displayContainer.textContent += number.textContent;
+        currentNum = displayContainer.textContent;
     })
 })
 
@@ -207,9 +214,6 @@ operators.forEach(operator => {
         // save the operator user clicks
         currentOperator = operator.textContent;
 
-        // save the digits on the display
-        currentNum = displayContainer.textContent;
-
         // if only one number has been inputted, calculations cannot be made
         // save digits into savedNum
         if (savedNum == undefined) {
@@ -219,37 +223,38 @@ operators.forEach(operator => {
             savedNum = currentNum;
             savedOperator = currentOperator;
             console.log('currentNum is now saved in savedNum');
-  
+
 
             currentNum = undefined;
             console.log('savedNum: ' + savedNum + '\ncurrentNum: ' + currentNum + '\ncurrentOperator: ' + currentOperator);
 
         } else {
 
-            // else occurs when two numbers have been inputted
+            // check if user is dividing by zero
+            if (savedOperator == '/' && currentNum == '0') {
 
-            //console.log(operate(currentOperator, parseInt(savedNum), parseInt(currentNum)));
-            console.log(`savedOperator: ${savedOperator}\nsavedNum: ${savedNum}\ncurrentNum: ${currentNum}`);
-            savedNum = operate(savedOperator, parseInt(savedNum), parseInt(currentNum));
-            console.log(`savedOperator: ${savedOperator}\nsavedNum: ${savedNum}\ncurrentNum: ${currentNum}`);
-            displayContainer.textContent = savedNum;
+                divByZero();
 
-            // reset currentNum and savedOperator
-            // currentNum = undefined;
-            // savedOperator = undefined;
-            // update the operator to the most recently clicked one
-            savedOperator = currentOperator;
-            console.log('savedNum: ' + savedNum + '\ncurrentNum: ' + currentNum + '\ncurrentOperator: ' + currentOperator);
+            } else {
+
+                // else occurs when two numbers have been inputted, and an operation is given
+
+                //console.log(operate(currentOperator, parseInt(savedNum), parseInt(currentNum)));
+                console.log(`savedOperator: ${savedOperator}\nsavedNum: ${savedNum}\ncurrentNum: ${currentNum}`);
+                savedNum = operate(savedOperator, parseInt(savedNum), parseInt(currentNum));
+                console.log(`savedOperator: ${savedOperator}\nsavedNum: ${savedNum}\ncurrentNum: ${currentNum}`);
+                displayContainer.textContent = savedNum;
+
+                // reset currentNum and savedOperator
+                // currentNum = undefined;
+                // savedOperator = undefined;
+                // update the operator to the most recently clicked one
+                savedOperator = currentOperator;
+                console.log('savedNum: ' + savedNum + '\ncurrentNum: ' + currentNum + '\ncurrentOperator: ' + currentOperator);
+
+            }
+
         }
-
-        // else two numbers have been inputted, do this
-
-
-        // reset display after operator is clicked
-
-
-        // if '=' clicked, save currentNum into savedNum variable
-
 
     })
 
@@ -257,40 +262,75 @@ operators.forEach(operator => {
 
 equalBtn.addEventListener('click', () => {
 
-    // save the current display digits
-    currentNum = displayContainer.textContent;
+    if (savedOperator == '/' && currentNum == '0') {
+        divByZero();
+    } else if (savedNum == undefined || currentNum == undefined) {
 
-    firstDigInstance = true;
+        // user might press enter even if there is no numbers to evaluate, so in that case, don't do anything
+        console.log('nothing occurs');
+    }
+    else {
+        firstDigInstance = true;
 
-    console.log('in here');
-    console.log(`savedOperator: ${savedOperator}\nsavedNum: ${savedNum}\ncurrentNum: ${currentNum}`);
-    savedNum = operate(savedOperator, parseInt(savedNum), parseInt(currentNum));
-    console.log(`savedOperator: ${savedOperator}\nsavedNum: ${savedNum}\ncurrentNum: ${currentNum}`);
-    displayContainer.textContent = savedNum;
+        console.log('in here');
+        console.log(`savedOperator: ${savedOperator}\nsavedNum: ${savedNum}\ncurrentNum: ${currentNum}`);
+        savedNum = operate(savedOperator, parseInt(savedNum), parseInt(currentNum));
+        console.log(`savedOperator: ${savedOperator}\nsavedNum: ${savedNum}\ncurrentNum: ${currentNum}`);
+        displayContainer.textContent = savedNum;
+    }
+
+
 
 })
 
 // if AC clicked, reset operator, currentNum, savedNum;
 acBtn.addEventListener('click', () => {
 
-    firstDigInstance = true;
-
-    displayContainer.textContent = '0';
-    currentOperator = undefined;
-    currentNum = undefined;
-    savedNum = undefined;
-    console.log(`operator: ${currentOperator}\nsavedNum: ${savedNum}\ncurrentNum: ${currentNum}`);
+    resetCalculator();
 
 })
 
+// when delete clicked, remove a digit from the displayContainer, if there's only a single digit shown, and delete is clicked, set display to 0
+delBtn.addEventListener('click', () => {
 
-// keep doing this loop until user presses '='
-    // when number is clicked, populate display and save the currentNum
-    // when operator (+,-,*,/) is clicked, save currentNum into savedNum
-        // also save the operator
-        // operate() when user presses '='
+    switch (displayContainer.textContent) {
+        case '0':
+        case '':
+        case '1':
+        case '2':
+        case '3':
+        case '4':
+        case '5':
+        case '6':
+        case '7':
+        case '8':
+        case '9':
+            displayContainer.textContent = '0';
+            firstDigInstance = true;
+            break;
+        default:
+            displayContainer.textContent = displayContainer.textContent.slice(0, -1);
+    }
+
+})
+
+function resetCalculator() {
+
+    firstDigInstance = true;
+
+    displayContainer.textContent = '0';
+
+    currentNum = undefined
+    savedNum = undefined
+    currentOperator = undefined;
+    savedOperator = undefined;
+
+    console.log(`savedOperator: ${savedOperator}\ncurrentOperator: ${currentOperator}\nsavedNum: ${savedNum}\ncurrentNum: ${currentNum}`);
+
+}
 
 
-// 
-
-
+function divByZero() {
+    alert('Dividing by 0 produces NOT A NUMBER');
+    resetCalculator();
+}
