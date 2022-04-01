@@ -208,53 +208,62 @@ operators.forEach(operator => {
 
     operator.addEventListener('click', () => {
 
-        // when an operator is clicked, we should reset the firstDigInstance boolean so when digits are entered again, they don't overflow from previous digits
-        firstDigInstance = true;
 
-        // save the operator user clicks
-        currentOperator = operator.textContent;
+        // only continue if user entered a number and operator
+        // if the user only inputted an operator and maybe done so twice or multiple times, don't do anything
+        if (currentNum != undefined) {
 
-        // if only one number has been inputted, calculations cannot be made
-        // save digits into savedNum
-        if (savedNum == undefined) {
-            console.log('savedNum: ' + savedNum + '\ncurrentNum: ' + currentNum + '\ncurrentOperator: ' + currentOperator);
+            // when an operator is clicked, we should reset the firstDigInstance boolean so when digits are entered again, they don't overflow from previous digits
+            firstDigInstance = true;
 
-            // store the currentNum in savedNum
-            savedNum = currentNum;
-            savedOperator = currentOperator;
-            console.log('currentNum is now saved in savedNum');
+            // save the operator user clicks
+            currentOperator = operator.textContent;
+
+            // if only one number has been inputted, calculations cannot be made
+            // save digits into savedNum
+            if (savedNum == undefined) {
+                console.log('savedNum: ' + savedNum + '\ncurrentNum: ' + currentNum + '\ncurrentOperator: ' + currentOperator);
+
+                // store the currentNum in savedNum
+                savedNum = currentNum;
+                savedOperator = currentOperator;
+                console.log('currentNum is now saved in savedNum');
 
 
-            currentNum = undefined;
-            console.log('savedNum: ' + savedNum + '\ncurrentNum: ' + currentNum + '\ncurrentOperator: ' + currentOperator);
-
-        } else {
-
-            // check if user is dividing by zero
-            if (savedOperator == '/' && currentNum == '0') {
-
-                divByZero();
+                currentNum = undefined;
+                console.log('savedNum: ' + savedNum + '\ncurrentNum: ' + currentNum + '\ncurrentOperator: ' + currentOperator);
 
             } else {
 
-                // else occurs when two numbers have been inputted, and an operation is given
+                // check if user is dividing by zero
+                if (savedOperator == '/' && currentNum == '0') {
 
-                //console.log(operate(currentOperator, parseInt(savedNum), parseInt(currentNum)));
-                console.log(`savedOperator: ${savedOperator}\nsavedNum: ${savedNum}\ncurrentNum: ${currentNum}`);
-                savedNum = operate(savedOperator, parseInt(savedNum), parseInt(currentNum));
-                console.log(`savedOperator: ${savedOperator}\nsavedNum: ${savedNum}\ncurrentNum: ${currentNum}`);
-                displayContainer.textContent = savedNum;
+                    divByZero();
 
-                // reset currentNum and savedOperator
-                // currentNum = undefined;
-                // savedOperator = undefined;
-                // update the operator to the most recently clicked one
-                savedOperator = currentOperator;
-                console.log('savedNum: ' + savedNum + '\ncurrentNum: ' + currentNum + '\ncurrentOperator: ' + currentOperator);
+                } else {
+
+                    // else occurs when two numbers have been inputted, and an operation is given
+
+                    //console.log(operate(currentOperator, parseInt(savedNum), parseInt(currentNum)));
+                    console.log(`savedOperator: ${savedOperator}\nsavedNum: ${savedNum}\ncurrentNum: ${currentNum}`);
+                    savedNum = operate(savedOperator, parseInt(savedNum), parseInt(currentNum));
+                    console.log(`savedOperator: ${savedOperator}\nsavedNum: ${savedNum}\ncurrentNum: ${currentNum}`);
+                    displayContainer.textContent = savedNum;
+
+                    // reset currentNum and savedOperator
+                    // currentNum = undefined;
+                    // savedOperator = undefined;
+                    // update the operator to the most recently clicked one
+                    savedOperator = currentOperator;
+                    console.log('savedNum: ' + savedNum + '\ncurrentNum: ' + currentNum + '\ncurrentOperator: ' + currentOperator);
+
+                }
 
             }
 
         }
+
+
 
     })
 
