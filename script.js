@@ -1,27 +1,27 @@
 // add
-function add(a,b) {
+function add(a, b) {
     return a + b;
 }
 
 // subtract
-function sub(a,b) {
+function sub(a, b) {
     return a - b;
 }
 
 // multiply
-function mul(a,b) {
+function mul(a, b) {
     return a * b;
 }
 
 // divide
-function div(a,b) {
+function div(a, b) {
     return a / b;
 }
 
 // operate function takes an operator and two numbers and calls add/sub/mul/div on the nums
 function operate(op, num1, num2) {
 
-    switch(op) {
+    switch (op) {
         case '+':
             return add(num1, num2);
             break;
@@ -43,17 +43,17 @@ const body = document.querySelector('body');
 // create container for calculator display
 let displayContainer = document.createElement('div');
 displayContainer.classList.add('display');
-    
-    // add dummy text into display
-    displayContainer.textContent = '0';
+
+// add dummy text into display
+displayContainer.textContent = '0';
 
 // create container for digits and operators
 
-    // for digits
+// for digits
 let digitContainer = document.createElement('div');
 digitContainer.classList.add('digits');
 
-    // for operators
+// for operators
 let operatorContainer = document.createElement('div');
 operatorContainer.classList.add('operators');
 
@@ -137,7 +137,7 @@ divBtn.textContent = '/';
 
 let equalBtn = document.createElement('button');
 equalBtn.classList.add('btn');
-equalBtn.classList.add('operator');
+equalBtn.classList.add('evaluate');
 equalBtn.textContent = '=';
 
 // append digits onto digits container
@@ -162,20 +162,135 @@ operatorContainer.appendChild(equalBtn);
 // create All Clear btn
 let acBtn = document.createElement('button');
 acBtn.classList.add('btn');
+acBtn.classList.add('allClear');
 acBtn.textContent = 'AC';
-digitContainer.appendChild(acBtn);
+operatorContainer.appendChild(acBtn);
 
-// populate display when a number is clicked
 let currentNum;
 let savedNum;
 let operator;
+let firstDigInstance = true;
+let currentOperator;
+let savedOperator;
+
+// when a number is clicked, update the display
 let numbers = document.querySelectorAll('.digit');
 numbers.forEach(number => {
 
     number.addEventListener('click', () => {
+
+        // if this is the first digit of the number wanted, we reset the display before updating the display with the clicked digit
+        // this is to prevent digits from the last inputted number from showing on the display
+        if (firstDigInstance == true) {
+
+            // reset display
+            displayContainer.textContent = ''
+
+            // update boolean such that the display doesn't update while waiting/inputting more digits
+            firstDigInstance = false;
+        }
+
+        // populate display
         displayContainer.textContent += number.textContent;
-        
-        // store displayContainer contents
-        currentNum = displayContainer.textContent;
     })
 })
+
+// when an operator such as /, +, -, * are clicked, the digits on the display are saved, the operator choice is saved as well, we also reset firstDigInstance to true
+let operators = document.querySelectorAll('.operator');
+operators.forEach(operator => {
+
+    operator.addEventListener('click', () => {
+
+        // when an operator is clicked, we should reset the firstDigInstance boolean so when digits are entered again, they don't overflow from previous digits
+        firstDigInstance = true;
+
+        // save the operator user clicks
+        currentOperator = operator.textContent;
+
+        // save the digits on the display
+        currentNum = displayContainer.textContent;
+
+        // if only one number has been inputted, calculations cannot be made
+        // save digits into savedNum
+        if (savedNum == undefined) {
+            console.log('savedNum: ' + savedNum + '\ncurrentNum: ' + currentNum + '\ncurrentOperator: ' + currentOperator);
+
+            // store the currentNum in savedNum
+            savedNum = currentNum;
+            savedOperator = currentOperator;
+            console.log('currentNum is now saved in savedNum');
+  
+
+            currentNum = undefined;
+            console.log('savedNum: ' + savedNum + '\ncurrentNum: ' + currentNum + '\ncurrentOperator: ' + currentOperator);
+
+        } else {
+
+            // else occurs when two numbers have been inputted
+
+            //console.log(operate(currentOperator, parseInt(savedNum), parseInt(currentNum)));
+            console.log(`savedOperator: ${savedOperator}\nsavedNum: ${savedNum}\ncurrentNum: ${currentNum}`);
+            savedNum = operate(savedOperator, parseInt(savedNum), parseInt(currentNum));
+            console.log(`savedOperator: ${savedOperator}\nsavedNum: ${savedNum}\ncurrentNum: ${currentNum}`);
+            displayContainer.textContent = savedNum;
+
+            // reset currentNum and savedOperator
+            // currentNum = undefined;
+            // savedOperator = undefined;
+            // update the operator to the most recently clicked one
+            savedOperator = currentOperator;
+            console.log('savedNum: ' + savedNum + '\ncurrentNum: ' + currentNum + '\ncurrentOperator: ' + currentOperator);
+        }
+
+        // else two numbers have been inputted, do this
+
+
+        // reset display after operator is clicked
+
+
+        // if '=' clicked, save currentNum into savedNum variable
+
+
+    })
+
+})
+
+equalBtn.addEventListener('click', () => {
+
+    // save the current display digits
+    currentNum = displayContainer.textContent;
+
+    firstDigInstance = true;
+
+    console.log('in here');
+    console.log(`savedOperator: ${savedOperator}\nsavedNum: ${savedNum}\ncurrentNum: ${currentNum}`);
+    savedNum = operate(savedOperator, parseInt(savedNum), parseInt(currentNum));
+    console.log(`savedOperator: ${savedOperator}\nsavedNum: ${savedNum}\ncurrentNum: ${currentNum}`);
+    displayContainer.textContent = savedNum;
+
+})
+
+// if AC clicked, reset operator, currentNum, savedNum;
+acBtn.addEventListener('click', () => {
+
+    firstDigInstance = true;
+
+    displayContainer.textContent = '0';
+    currentOperator = undefined;
+    currentNum = undefined;
+    savedNum = undefined;
+    console.log(`operator: ${currentOperator}\nsavedNum: ${savedNum}\ncurrentNum: ${currentNum}`);
+
+})
+
+
+// keep doing this loop until user presses '='
+    // when number is clicked, populate display and save the currentNum
+    // when operator (+,-,*,/) is clicked, save currentNum into savedNum
+        // also save the operator
+        // operate() when user presses '='
+
+
+// 
+
+
