@@ -264,7 +264,6 @@ operators.forEach(operator => {
         }
 
 
-
     })
 
 })
@@ -286,6 +285,8 @@ equalBtn.addEventListener('click', () => {
         savedNum = operate(savedOperator, parseInt(savedNum), parseInt(currentNum));
         console.log(`savedOperator: ${savedOperator}\nsavedNum: ${savedNum}\ncurrentNum: ${currentNum}`);
         displayContainer.textContent = savedNum;
+
+        currentNum = 0;
     }
 
 
