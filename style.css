@@ -1,0 +1,23 @@
+.calculator {
+
+    display: flex;
+    flex-direction: column;
+
+    background-color: salmon;
+    padding: 20%;
+    width: 30px;
+
+}
+
+.display {
+
+    background-color: grey;
+    width: 50px;
+    padding: 50px;
+}
+
+.btn {
+    padding: 30px;
+    font-family: 'Courier New', Courier, monospace;
+    border-radius: 50%;
+}

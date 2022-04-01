@@ -40,6 +40,11 @@ function operate(op, num1, num2) {
 
 const body = document.querySelector('body');
 
+// create the main container that holds all the calculator content
+let calculator = document.createElement('div');
+calculator.classList.add('calculator');
+body.appendChild(calculator);
+
 // create container for calculator display
 let displayContainer = document.createElement('div');
 displayContainer.classList.add('display');
@@ -57,10 +62,10 @@ digitContainer.classList.add('digits');
 let operatorContainer = document.createElement('div');
 operatorContainer.classList.add('operators');
 
-// append onto body
-body.appendChild(displayContainer);
-body.appendChild(digitContainer);
-body.appendChild(operatorContainer);
+// append onto calculator
+calculator.appendChild(displayContainer);
+calculator.appendChild(digitContainer);
+calculator.appendChild(operatorContainer);
 
 // create buttons for digits
 let oneBtn = document.createElement('button');
