@@ -1,51 +1,74 @@
 .calculator {
 
-
+    font-family: helvetica;
     display: flex;
     flex-wrap: wrap;
 
-    background-color: rgb(255, 184, 176);
+    background-color: rgb(0, 0, 0);
     padding: 5%;
-    height: 400px;
-    width: 220px;
-    justify-content: center;
-    align-items: center;
-
+    height: 844px;
+    width: 390px;
 
 }
 
 .display {
 
-    background-color: rgb(198, 198, 198);
+    background-color: rgb(0, 0, 0);
     flex: 1;
     padding: 20px;
     direction: rtl;
+
+    margin-top: 90px;
+
+    font-size: 100px;
+    font-weight: lighter;
+    color: white;
+    height: max-content;
 }
 
 .btn {
-    padding: 20px;
-    font-family: 'Courier New', Courier, monospace;
     border: none;
+    font-size: 43px;
+    font-weight: lighter;
 }
 
-.operators {
-
-    margin-right: auto;
-    
-
-
+.digits {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    column-gap: 10px;
 }
 
-.operator, .evaluate, .allClear, .delete {
-    background-color: rgb(142, 142, 142);
+.evaluate, .operator {
+    background-color: #f59907;
+    color: white;
 }
 
-.evaluate {
-
-
-    display: inline-flex;
+.digit {
+    background-color: #313131;
+    color: white;
 }
 
+.digit, .operator, .evaluate {
+    height: 90px;
+    width: 90px;
+    border-radius: 50%;
+}
+
+.allClear, .delete {
+    background-color: #a0a0a0;
+    height: 100px;
+    width: 140px;
+    border-radius: 360px;
+}
+
+.zero {
+    width: 290px;
+    height: 100px;
+    border-radius: 360px;
+    text-align: left;
+    padding-left: 50px;
+}
 
 /* TODO:
 make css look more aesthetically pleasing

@@ -116,6 +116,7 @@ nineBtn.textContent = '9';
 let zeroBtn = document.createElement('button');
 zeroBtn.classList.add('btn');
 zeroBtn.classList.add('digit');
+zeroBtn.classList.add('zero');
 zeroBtn.textContent = '0'
 
 
@@ -145,21 +146,54 @@ equalBtn.classList.add('btn');
 equalBtn.classList.add('evaluate');
 equalBtn.textContent = '=';
 
+// create All Clear btn
+let acBtn = document.createElement('button');
+acBtn.classList.add('btn');
+acBtn.classList.add('allClear');
+acBtn.textContent = 'AC';
+// operatorContainer.appendChild(acBtn);
+
+// create Delete btn
+let delBtn = document.createElement('button');
+delBtn.classList.add('btn');
+delBtn.classList.add('delete');
+delBtn.textContent = 'DEL';
+//operatorContainer.appendChild(delBtn);
+
+// // create useless btn that does nothing
+// let uselessBtn = document.createElement('button');
+// uselessBtn.classList.add('btn');
+// uselessBtn.classList.add('useless');
+
+// // create another btn that does nothing right now
+// let dotBtn = document.createElement('button');
+// dotBtn.classList.add('btn');
+// dotBtn.classList.add('dot');
+
+
 // append digits onto digits container
+digitContainer.appendChild(acBtn);
+digitContainer.appendChild(delBtn);
+// digitContainer.appendChild(uselessBtn);
+digitContainer.appendChild(divBtn);
+
 digitContainer.appendChild(sevenBtn);
 digitContainer.appendChild(eightBtn);
 digitContainer.appendChild(nineBtn);
-digitContainer.appendChild(divBtn);
+digitContainer.appendChild(mulBtn);
+
 digitContainer.appendChild(fourBtn);
 digitContainer.appendChild(fiveBtn);
 digitContainer.appendChild(sixBtn);
-digitContainer.appendChild(mulBtn);
+digitContainer.appendChild(subBtn);
+
 digitContainer.appendChild(oneBtn);
 digitContainer.appendChild(twoBtn);
 digitContainer.appendChild(threeBtn);
-digitContainer.appendChild(subBtn);
-digitContainer.appendChild(zeroBtn);
 digitContainer.appendChild(addBtn);
+
+digitContainer.appendChild(zeroBtn);
+// digitContainer.appendChild(dotBtn);
 digitContainer.appendChild(equalBtn);
 
 // append operators onto operators container
@@ -169,19 +203,7 @@ digitContainer.appendChild(equalBtn);
 // operatorContainer.appendChild(addBtn);
 // operatorContainer.appendChild(equalBtn);
 
-// create All Clear btn
-let acBtn = document.createElement('button');
-acBtn.classList.add('btn');
-acBtn.classList.add('allClear');
-acBtn.textContent = 'AC';
-operatorContainer.appendChild(acBtn);
 
-// create Delete btn
-let delBtn = document.createElement('button');
-delBtn.classList.add('btn');
-delBtn.classList.add('delete');
-delBtn.textContent = 'DEL';
-operatorContainer.appendChild(delBtn);
 
 let currentNum;
 let savedNum;
@@ -354,3 +376,18 @@ function divByZero() {
     alert('Dividing by 0 produces NOT A NUMBER');
     resetCalculator();
 }
+
+
+let buttons = document.querySelectorAll('.btn');
+buttons.forEach(button => {
+    button.addEventListener('click', () => {
+        let currentColor = button.style.backgroundColor;
+        button.style.backgroundColor = 'grey';
+        console.log(currentColor);
+
+        setTimeout(function () {
+            button.style.backgroundColor = currentColor;
+        }, 100);
+
+    })
+})
